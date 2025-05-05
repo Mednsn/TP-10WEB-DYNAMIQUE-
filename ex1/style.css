@@ -1,0 +1,53 @@
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+form {
+    background: #f4f4f4;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="date"],
+input[type="submit"] {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border-radius: 3px;
+    border: 1px solid #ddd;
+}
+
+input[type="submit"] {
+    background: #333;
+    color: white;
+    cursor: pointer;
+}
+
+.error {
+    color: red;
+    padding: 5px;
+    background: #ffd4d4;
+    border: 1px solid red;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+table, th, td {
+    border: 1px solid #ddd;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+}
