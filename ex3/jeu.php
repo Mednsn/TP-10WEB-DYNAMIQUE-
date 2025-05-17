@@ -1,3 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Jeu de combat</title>
+</head>
+<body>
+    <?php if (isset($message)) echo "<p>$message</p>"; ?>
+    
+    <h2>Créer un guerrier</h2>
+    <form method="post">
+        Nom: <input type="text" name="nom" required>
+        <input type="submit" value="Créer">
+    </form>
+    
+    <h2>Liste des guerriers</h2>
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Nom</th>
+            <th>Dégâts</th>
+            <th>Actions</th>
+        </tr>
+        <?php while ($row = $guerriers->fetch_assoc()): ?>
+        <tr>
+            <td><?php echo $row['id']; ?></td>
+            <td><?php echo $row['nom']; ?></td>
+            <td><?php echo $row['degats']; ?>%</td>
+            <td>
+                <form method="get" style="display:inline;">
+                    <input type="hidden" name="attaquant" value="<?php echo $row['id']; ?>">
+                    <select name="frapper">
+                        <?php 
+                        $autres = $conn->query("SELECT id, nom FROM guerrier WHERE id != " . $row['id']);
+                        while ($autre = $autres->fetch_assoc()) {
+                            echo "<option value='" . $autre['id'] . "'>" . $autre['nom'] . "</option>";
+                        }
+                        ?>
+                    </select>
+                    <input type="submit" value="Frapper">
+                </form>
+            </td>
+        </tr>
+        <?php endwhile; ?>
+    </table>
+</body>
+</html>
+<?php $conn->close(); ?>
 <?php
 $conn = new mysqli('localhost', 'username', 'password', 'TP10');
 
@@ -48,51 +95,3 @@ if (isset($_GET['frapper'])) {
 
 $guerriers = $conn->query("SELECT * FROM guerrier");
 ?>
-
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Jeu de combat</title>
-</head>
-<body>
-    <?php if (isset($message)) echo "<p>$message</p>"; ?>
-    
-    <h2>Créer un guerrier</h2>
-    <form method="post">
-        Nom: <input type="text" name="nom" required>
-        <input type="submit" value="Créer">
-    </form>
-    
-    <h2>Liste des guerriers</h2>
-    <table border="1">
-        <tr>
-            <th>ID</th>
-            <th>Nom</th>
-            <th>Dégâts</th>
-            <th>Actions</th>
-        </tr>
-        <?php while ($row = $guerriers->fetch_assoc()): ?>
-        <tr>
-            <td><?php echo $row['id']; ?></td>
-            <td><?php echo $row['nom']; ?></td>
-            <td><?php echo $row['degats']; ?>%</td>
-            <td>
-                <form method="get" style="display:inline;">
-                    <input type="hidden" name="attaquant" value="<?php echo $row['id']; ?>">
-                    <select name="frapper">
-                        <?php 
-                        $autres = $conn->query("SELECT id, nom FROM guerrier WHERE id != " . $row['id']);
-                        while ($autre = $autres->fetch_assoc()) {
-                            echo "<option value='" . $autre['id'] . "'>" . $autre['nom'] . "</option>";
-                        }
-                        ?>
-                    </select>
-                    <input type="submit" value="Frapper">
-                </form>
-            </td>
-        </tr>
-        <?php endwhile; ?>
-    </table>
-</body>
-</html>
-<?php $conn->close(); ?>
