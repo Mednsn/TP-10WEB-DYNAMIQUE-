@@ -7,10 +7,7 @@ if (!isset($_SESSION['CONNECT']) || $_SESSION['CONNECT'] != 'OK') {
 }
 
 if (isset($_GET['afaire']) && $_GET['afaire'] == 'deconnexion') {
-    session_destroy();
-    header('Location: validation.php?afaire=deconnexion');
-    exit;
-}
+    session_destroy(); header('Location: validation.php?afaire=deconnexion'); exit;}
 ?>
 <!DOCTYPE html>
 <html>
